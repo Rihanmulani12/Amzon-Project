@@ -1,4 +1,3 @@
-
 import { cart, removeFromCart } from "./data/cart.js";
 import { products } from "./data/products.js";
 
@@ -102,7 +101,6 @@ cart.forEach((CartItem) => {
       const container = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
-      console.log(container);
 
       container.remove();
     });
