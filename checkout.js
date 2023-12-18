@@ -1,23 +1,21 @@
-import { cart  , removeFromCart } from "./data/cart.js";
+
+import { cart, removeFromCart } from "./data/cart.js";
 import { products } from "./data/products.js";
 
-let cartSumaaryHtml = '';
+let cartSumaaryHtml = "";
 
 cart.forEach((CartItem) => {
-    const productId = CartItem.productId;
-    let matchingProduct;
+  const productId = CartItem.productId;
+  let matchingProduct;
 
-    products.forEach((product) => {
-        if (product.id === productId) {
-            matchingProduct = product;
-        }
-    });
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
 
-    
-
-
-
-    cartSumaaryHtml += `<div class="cart-item-container">
+  cartSumaaryHtml += `<div class="cart-item-container
+    js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
@@ -37,7 +35,7 @@ cart.forEach((CartItem) => {
             <span>
               Quantity: <span class="quantity-label">${CartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="update-quantity-link link-primary js-upadte-link">
               Update
             </span>
             <span class="delete-quantity-link link-primary js-delete-link"
@@ -92,19 +90,21 @@ cart.forEach((CartItem) => {
           </div>
         </div>
       </div>
-    </div>`
+    </div>`;
 
-    document.querySelector('.js-order-summary').innerHTML = cartSumaaryHtml;
+  document.querySelector(".js-order-summary").innerHTML = cartSumaaryHtml;
 
-    document.querySelectorAll('.js-delete-link').forEach((link)=>{
-     link.addEventListener('click' ,()=>{
-        const productId = link.dataset.productId;
-        removeFromCart(productId);
-        
-     })
-    })
+  document.querySelectorAll(".js-delete-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const productId = link.dataset.productId;
+      removeFromCart(productId);
 
-   
- 
-   
-})
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+      console.log(container);
+
+      container.remove();
+    });
+  });
+});
